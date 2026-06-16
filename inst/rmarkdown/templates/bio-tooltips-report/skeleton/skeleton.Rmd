@@ -1,0 +1,27 @@
+---
+title: "Bio Tooltips report"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(biotooltips)
+```
+
+```{r bio-tooltips-setup, echo=FALSE}
+use_bio_tooltips(modules = c("gene", "chemical"))
+```
+
+The gene `r gene_tt("TP53", species = "human")` can be used inline in prose.
+
+```{r results='asis'}
+top_genes <- data.frame(
+  symbol = c("TP53", "BRCA1", "GADD45A"),
+  log2FoldChange = c(2.1, -1.4, 1.2),
+  padj = c(0.0004, 0.002, 0.01)
+)
+
+top_genes |>
+  gene_column(symbol, species = "human") |>
+  bt_kable()
+```

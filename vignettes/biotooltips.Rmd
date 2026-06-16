@@ -1,0 +1,61 @@
+---
+title: "Adding Bio Tooltips to R Markdown reports"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Adding Bio Tooltips to R Markdown reports}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+```{r setup}
+library(biotooltips)
+use_bio_tooltips(modules = c("gene", "chemical"))
+```
+
+`biotooltips` adds small HTML spans to R Markdown output and lets the browser-side Bio Tooltips JavaScript library do the lookup and rendering.
+
+## Inline prose
+
+Genes can be included inline:
+
+```{r inline-demo, results='asis'}
+cat("The tumour suppressor ", gene_tt("TP53", species = "human"), " is central to DNA damage responses.", sep = "")
+```
+
+Chemicals can use stable identifiers:
+
+```{r chemical-demo, results='asis'}
+cat("A chemical example: ", chem_tt("aspirin", query = "2244", scope = "pubchem"), ".", sep = "")
+```
+
+## Tables
+
+```{r table-demo, results='asis'}
+top_genes <- data.frame(
+  symbol = c("TP53", "BRCA1", "GADD45A"),
+  log2FoldChange = c(2.1, -1.4, 1.2),
+  padj = c(0.0004, 0.002, 0.01)
+)
+
+top_genes |>
+  gene_column(symbol, species = "human") |>
+  bt_kable()
+```
+
+The important detail is that HTML escaping must be disabled for the table cell containing tooltip spans. `bt_kable()` does this by default.
+
+## Experimental auto-linking
+
+If prose is already rendered, `auto_gene_tooltips()` can wrap a supplied vocabulary of gene symbols in a constrained selector. This should be used carefully because some gene symbols are ordinary words.
+
+```{r auto-demo, eval=FALSE}
+auto_gene_tooltips(
+  genes = c("TP53", "BRCA1", "GADD45A"),
+  species = "human",
+  selector = ".results-section"
+)
+```

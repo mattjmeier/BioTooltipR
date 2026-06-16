@@ -1,0 +1,185 @@
+#' Bio Tooltips HTML dependency
+#'
+#' Creates the `htmltools` dependency for the browser-side Bio Tooltips bundle.
+#'
+#' @param cdn Use jsDelivr CDN assets. If `FALSE`, the package looks for local
+#'   vendored assets under `inst/htmltools/bio-tooltips/` or `local_path`.
+#' @param version JavaScript package version. Use a pinned version for
+#'   reproducible reports.
+#' @param local_path Optional path containing `bio-tooltips.css` and
+#'   `bio-tooltips.global.js`.
+#'
+#' @return An `htmltools::htmlDependency` object.
+#' @export
+bio_tooltips_dependency <- function(cdn = TRUE,
+                                    version = "latest",
+                                    local_path = NULL) {
+  version <- as.character(version)
+
+  if (isTRUE(cdn)) {
+    return(htmltools::htmlDependency(
+      name = "bio-tooltips",
+      version = version,
+      src = c(href = sprintf("https://cdn.jsdelivr.net/npm/bio-tooltips@%s", version)),
+      script = "dist/bio-tooltips.global.js",
+      stylesheet = "dist/bio-tooltips.css",
+      all_files = FALSE
+    ))
+  }
+
+  path <- local_path %||% system.file("htmltools", "bio-tooltips", package = "biotooltips")
+  js <- file.path(path, "bio-tooltips.global.js")
+  css <- file.path(path, "bio-tooltips.css")
+
+  if (!file.exists(js) || !file.exists(css)) {
+    stop(
+      "Local Bio Tooltips assets were not found. ",
+      "Use `cdn = TRUE`, pass `local_path`, or vendor assets under ",
+      "inst/htmltools/bio-tooltips/.",
+      call. = FALSE
+    )
+  }
+
+  htmltools::htmlDependency(
+    name = "bio-tooltips",
+    version = version,
+    src = path,
+    script = "bio-tooltips.global.js",
+    stylesheet = "bio-tooltips.css",
+    all_files = FALSE
+  )
+}
+
+#' Attach and initialize Bio Tooltips
+#'
+#' Use this once in an R Markdown, Quarto, Shiny UI, or other HTML-producing
+#' context. It attaches the Bio Tooltips CSS/JS dependency and initializes the
+#' selected modules after the DOM is ready.
+#'
+#' @param modules Character vector containing `"gene"`, `"chemical"`, or both.
+#' @param cdn Use jsDelivr CDN assets. See [bio_tooltips_dependency()].
+#' @param version JavaScript package version. Use a pinned version for
+#'   reproducibility, or `"latest"` while developing.
+#' @param theme Tooltip theme passed to Bio Tooltips.
+#' @param prefetch Prefetch strategy passed to Bio Tooltips.
+#' @param gene_selector CSS selector for gene tooltip elements.
+#' @param chemical_selector CSS selector for chemical tooltip elements.
+#' @param visual_preload Optional visual dependency warmup strategy for gene
+#'   visuals. Passed as `visualPreload`.
+#' @param debug_timings Log Bio Tooltips timing diagnostics in the browser.
+#' @param tooltip_width,tooltip_height Optional tooltip dimensions.
+#' @param include_optional_visual_deps Include CDN dependencies for D3 and
+#'   Ideogram. Gene tooltips can use these for chromosome/gene model visuals.
+#' @param d3_version,ideogram_version Versions used when optional visual
+#'   dependencies are included.
+#' @param local_path Optional local path for vendored Bio Tooltips assets.
+#'
+#' @return An HTML tag list containing dependencies and an initialization script.
+#' @export
+#'
+#' @examples
+#' use_bio_tooltips()
+#' use_bio_tooltips(modules = "gene", theme = "light")
+use_bio_tooltips <- function(modules = c("gene", "chemical"),
+                             cdn = TRUE,
+                             version = "latest",
+                             theme = "auto",
+                             prefetch = "smart",
+                             gene_selector = ".gene-tooltip",
+                             chemical_selector = ".chemical-tooltip",
+                             visual_preload = NULL,
+                             debug_timings = FALSE,
+                             tooltip_width = NULL,
+                             tooltip_height = NULL,
+                             include_optional_visual_deps = FALSE,
+                             d3_version = "7.9.0",
+                             ideogram_version = "1.53.0",
+                             local_path = NULL) {
+  modules <- bt_module_match(modules)
+
+  gene_config <- bt_compact(list(
+    selector = gene_selector,
+    theme = theme,
+    prefetch = prefetch,
+    visualPreload = visual_preload,
+    debugTimings = isTRUE(debug_timings),
+    tooltipWidth = tooltip_width,
+    tooltipHeight = tooltip_height
+  ))
+
+  chemical_config <- bt_compact(list(
+    selector = chemical_selector,
+    theme = theme,
+    prefetch = prefetch,
+    debugTimings = isTRUE(debug_timings),
+    tooltipWidth = tooltip_width,
+    tooltipHeight = tooltip_height
+  ))
+
+  init_lines <- c(
+    "(function () {",
+    "  window.BioTooltipsR = window.BioTooltipsR || {};",
+    "  window.BioTooltipsR.init = function () {"
+  )
+
+  if ("gene" %in% modules) {
+    init_lines <- c(
+      init_lines,
+      sprintf(
+        "    if (window.GeneTooltip && typeof window.GeneTooltip.init === 'function') window.GeneTooltip.init(%s);",
+        bt_json(gene_config)
+      )
+    )
+  }
+
+  if ("chemical" %in% modules) {
+    init_lines <- c(
+      init_lines,
+      sprintf(
+        "    if (window.ChemicalTooltip && typeof window.ChemicalTooltip.init === 'function') window.ChemicalTooltip.init(%s);",
+        bt_json(chemical_config)
+      )
+    )
+  }
+
+  init_lines <- c(
+    init_lines,
+    "  };",
+    "  if (document.readyState === 'loading') {",
+    "    document.addEventListener('DOMContentLoaded', window.BioTooltipsR.init);",
+    "  } else {",
+    "    window.BioTooltipsR.init();",
+    "  }",
+    "})();"
+  )
+
+  deps <- list(bio_tooltips_dependency(cdn = cdn, version = version, local_path = local_path))
+
+  if (isTRUE(include_optional_visual_deps)) {
+    deps <- c(deps, list(
+      htmltools::htmlDependency(
+        name = "d3",
+        version = d3_version,
+        src = c(href = sprintf("https://cdn.jsdelivr.net/npm/d3@%s/dist", d3_version)),
+        script = "d3.min.js",
+        all_files = FALSE
+      ),
+      htmltools::htmlDependency(
+        name = "ideogram",
+        version = ideogram_version,
+        src = c(href = sprintf("https://cdn.jsdelivr.net/npm/ideogram@%s/dist/js", ideogram_version)),
+        script = "ideogram.min.js",
+        all_files = FALSE
+      )
+    ))
+  }
+
+  htmltools::singleton(htmltools::tagList(
+    deps,
+    htmltools::tags$script(htmltools::HTML(paste(init_lines, collapse = "\n")))
+  ))
+}
+
+`%||%` <- function(x, y) {
+  if (is.null(x) || identical(x, "")) y else x
+}

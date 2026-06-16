@@ -1,0 +1,29 @@
+Package: biotooltips
+Title: Bio Tooltips for R Markdown and HTML Reports
+Version: 0.0.0.9000
+Authors@R: 
+    person("Matthew J.", "Meier", email = "matthew.james.meier@gmail.com", role = c("aut", "cre"))
+Description: Lightweight helpers for adding Bio Tooltips gene and chemical
+    tooltips to R Markdown, Quarto, Shiny, pkgdown, and other HTML outputs.
+    The package emits small HTML spans with module-specific data attributes
+    and attaches the underlying JavaScript and CSS assets from the
+    'bio-tooltips' JavaScript package.
+License: MIT + file LICENSE
+URL: https://github.com/mattjmeier/biotooltips
+BugReports: https://github.com/mattjmeier/biotooltips/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Depends:
+    R (>= 4.1)
+Imports:
+    htmltools,
+    jsonlite,
+    knitr,
+    utils
+Suggests:
+    DT,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0

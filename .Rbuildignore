@@ -1,0 +1,11 @@
+^\.github$
+^\.gitignore$
+^AGENTS\.md$
+^cran-comments\.md$
+^scripts$
+^README\.Rmd$
+^pkgdown$
+^biotooltips\.Rproj$
+^\.pixi$
+^pixi\.lock$
+^pixi\.toml$

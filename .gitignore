@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.tar.gz
+.DS_Store
+docs
+Meta
+# pixi environments
+.pixi/*
+!.pixi/config.toml
