@@ -61,6 +61,15 @@ devtools::check()
 
 If `roxygen2` rewrites `NAMESPACE` or `man/`, review the changes. Do not hand-edit generated `.Rd` files after documentation is generated unless this package intentionally stops using roxygen.
 
+## Development environment
+
+Dependencies for development are managed by Pixi. You can add and run dependencies like this:
+
+```bash
+pixi add r-base
+pixi run R
+```
+
 ## R CMD check discipline
 
 - Examples must not require internet access.

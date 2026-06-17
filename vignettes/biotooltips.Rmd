@@ -1,6 +1,8 @@
 ---
 title: "Adding Bio Tooltips to R Markdown reports"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    self_contained: false
 vignette: >
   %\VignetteIndexEntry{Adding Bio Tooltips to R Markdown reports}
   %\VignetteEngine{knitr::rmarkdown}

@@ -16,7 +16,7 @@ use_bio_tooltips(
   debug_timings = FALSE,
   tooltip_width = NULL,
   tooltip_height = NULL,
-  include_optional_visual_deps = FALSE,
+  include_optional_visual_deps = "auto",
   d3_version = "7.9.0",
   ideogram_version = "1.53.0",
   local_path = NULL
@@ -46,7 +46,9 @@ visuals. Passed as \code{visualPreload}.}
 \item{tooltip_width, tooltip_height}{Optional tooltip dimensions.}
 
 \item{include_optional_visual_deps}{Include CDN dependencies for D3 and
-Ideogram. Gene tooltips can use these for chromosome/gene model visuals.}
+Ideogram. The default, \code{"auto"}, includes them when the gene module is
+initialized because Bio Tooltips gene visuals use these peer dependencies.
+Use \code{FALSE} to opt out, for example when gene visuals are disabled.}
 
 \item{d3_version, ideogram_version}{Versions used when optional visual
 dependencies are included.}

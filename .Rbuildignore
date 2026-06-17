@@ -9,3 +9,5 @@
 ^\.pixi$
 ^pixi\.lock$
 ^pixi\.toml$
+^doc$
+^Meta$

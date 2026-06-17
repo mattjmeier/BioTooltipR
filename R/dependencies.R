@@ -15,11 +15,12 @@ bio_tooltips_dependency <- function(cdn = TRUE,
                                     version = "latest",
                                     local_path = NULL) {
   version <- as.character(version)
+  dependency_version <- bt_dependency_version(version)
 
   if (isTRUE(cdn)) {
     return(htmltools::htmlDependency(
       name = "bio-tooltips",
-      version = version,
+      version = dependency_version,
       src = c(href = sprintf("https://cdn.jsdelivr.net/npm/bio-tooltips@%s", version)),
       script = "dist/bio-tooltips.global.js",
       stylesheet = "dist/bio-tooltips.css",
@@ -42,7 +43,7 @@ bio_tooltips_dependency <- function(cdn = TRUE,
 
   htmltools::htmlDependency(
     name = "bio-tooltips",
-    version = version,
+    version = dependency_version,
     src = path,
     script = "bio-tooltips.global.js",
     stylesheet = "bio-tooltips.css",
@@ -69,7 +70,9 @@ bio_tooltips_dependency <- function(cdn = TRUE,
 #' @param debug_timings Log Bio Tooltips timing diagnostics in the browser.
 #' @param tooltip_width,tooltip_height Optional tooltip dimensions.
 #' @param include_optional_visual_deps Include CDN dependencies for D3 and
-#'   Ideogram. Gene tooltips can use these for chromosome/gene model visuals.
+#'   Ideogram. The default, `"auto"`, includes them when the gene module is
+#'   initialized because Bio Tooltips gene visuals use these peer dependencies.
+#'   Use `FALSE` to opt out, for example when gene visuals are disabled.
 #' @param d3_version,ideogram_version Versions used when optional visual
 #'   dependencies are included.
 #' @param local_path Optional local path for vendored Bio Tooltips assets.
@@ -91,7 +94,7 @@ use_bio_tooltips <- function(modules = c("gene", "chemical"),
                              debug_timings = FALSE,
                              tooltip_width = NULL,
                              tooltip_height = NULL,
-                             include_optional_visual_deps = FALSE,
+                             include_optional_visual_deps = "auto",
                              d3_version = "7.9.0",
                              ideogram_version = "1.53.0",
                              local_path = NULL) {
@@ -154,8 +157,9 @@ use_bio_tooltips <- function(modules = c("gene", "chemical"),
   )
 
   deps <- list(bio_tooltips_dependency(cdn = cdn, version = version, local_path = local_path))
+  include_visual_deps <- bt_include_visual_deps(include_optional_visual_deps, modules)
 
-  if (isTRUE(include_optional_visual_deps)) {
+  if (include_visual_deps) {
     deps <- c(deps, list(
       htmltools::htmlDependency(
         name = "d3",
@@ -180,6 +184,33 @@ use_bio_tooltips <- function(modules = c("gene", "chemical"),
   ))
 }
 
+bt_include_visual_deps <- function(include_optional_visual_deps, modules) {
+  if (identical(include_optional_visual_deps, "auto")) {
+    return("gene" %in% modules)
+  }
+
+  if (is.logical(include_optional_visual_deps) && length(include_optional_visual_deps) == 1L && !is.na(include_optional_visual_deps)) {
+    return(isTRUE(include_optional_visual_deps))
+  }
+
+  stop(
+    "`include_optional_visual_deps` must be TRUE, FALSE, or \"auto\".",
+    call. = FALSE
+  )
+}
+
 `%||%` <- function(x, y) {
   if (is.null(x) || identical(x, "")) y else x
+}
+
+bt_dependency_version <- function(version) {
+  if (length(version) != 1L || is.na(version) || !nzchar(version)) {
+    stop("`version` must be a single non-empty string.", call. = FALSE)
+  }
+
+  if (identical(version, "latest")) {
+    return(as.character(utils::packageVersion("biotooltips")))
+  }
+
+  version
 }
