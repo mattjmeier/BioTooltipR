@@ -18,6 +18,26 @@ test_that("use_bio_tooltips emits init script", {
   expect_match(html, "ChemicalTooltip.init", fixed = TRUE)
 })
 
+test_that("use_bio_tooltips cleans up previous module instances before reinitializing", {
+  tags <- use_bio_tooltips(modules = c("gene", "chemical"), version = "1.0.1")
+  html <- as.character(htmltools::renderTags(tags)$html)
+
+  expect_match(html, "window.BioTooltipsR.cleanup = function ()", fixed = TRUE)
+  expect_match(html, "window.BioTooltipsR.cleanup();", fixed = TRUE)
+  expect_match(html, "window.BioTooltipsR.configs.gene =", fixed = TRUE)
+  expect_match(html, "window.BioTooltipsR.configs.chemical =", fixed = TRUE)
+  expect_match(
+    html,
+    "window.BioTooltipsR.cleanups.push(window.GeneTooltip.init(configs.gene))",
+    fixed = TRUE
+  )
+  expect_match(
+    html,
+    "window.BioTooltipsR.cleanups.push(window.ChemicalTooltip.init(configs.chemical))",
+    fixed = TRUE
+  )
+})
+
 test_that("use_bio_tooltips includes gene visual peer dependencies automatically", {
   tags <- use_bio_tooltips(modules = "gene", version = "1.0.1")
   deps <- htmltools::findDependencies(tags)

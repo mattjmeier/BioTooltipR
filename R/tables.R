@@ -65,6 +65,10 @@ bt_datatable <- function(data,
   if (is.null(dots$callback)) {
     js_lines <- c(
       "function initBioTooltipsRTable() {",
+      "  if (window.BioTooltipsR && typeof window.BioTooltipsR.init === 'function') {",
+      "    window.BioTooltipsR.init();",
+      "    return;",
+      "  }",
       if ("gene" %in% modules) "  if (window.GeneTooltip) window.GeneTooltip.init({ selector: '.gene-tooltip' });" else NULL,
       if ("chemical" %in% modules) "  if (window.ChemicalTooltip) window.ChemicalTooltip.init({ selector: '.chemical-tooltip' });" else NULL,
       "}",

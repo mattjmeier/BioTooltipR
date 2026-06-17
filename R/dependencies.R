@@ -122,14 +122,24 @@ use_bio_tooltips <- function(modules = c("gene", "chemical"),
   init_lines <- c(
     "(function () {",
     "  window.BioTooltipsR = window.BioTooltipsR || {};",
-    "  window.BioTooltipsR.init = function () {"
+    "  window.BioTooltipsR.configs = window.BioTooltipsR.configs || {};",
+    "  window.BioTooltipsR.cleanups = window.BioTooltipsR.cleanups || [];",
+    "  window.BioTooltipsR.cleanup = function () {",
+    "    window.BioTooltipsR.cleanups.forEach(function (cleanup) {",
+    "      if (typeof cleanup === 'function') cleanup();",
+    "    });",
+    "    window.BioTooltipsR.cleanups = [];",
+    "  };",
+    "  window.BioTooltipsR.init = function () {",
+    "    var configs = window.BioTooltipsR.configs;",
+    "    window.BioTooltipsR.cleanup();"
   )
 
   if ("gene" %in% modules) {
     init_lines <- c(
       init_lines,
       sprintf(
-        "    if (window.GeneTooltip && typeof window.GeneTooltip.init === 'function') window.GeneTooltip.init(%s);",
+        "  window.BioTooltipsR.configs.gene = %s;",
         bt_json(gene_config)
       )
     )
@@ -139,7 +149,7 @@ use_bio_tooltips <- function(modules = c("gene", "chemical"),
     init_lines <- c(
       init_lines,
       sprintf(
-        "    if (window.ChemicalTooltip && typeof window.ChemicalTooltip.init === 'function') window.ChemicalTooltip.init(%s);",
+        "  window.BioTooltipsR.configs.chemical = %s;",
         bt_json(chemical_config)
       )
     )
@@ -147,6 +157,8 @@ use_bio_tooltips <- function(modules = c("gene", "chemical"),
 
   init_lines <- c(
     init_lines,
+    "    if (configs.gene && window.GeneTooltip && typeof window.GeneTooltip.init === 'function') window.BioTooltipsR.cleanups.push(window.GeneTooltip.init(configs.gene));",
+    "    if (configs.chemical && window.ChemicalTooltip && typeof window.ChemicalTooltip.init === 'function') window.BioTooltipsR.cleanups.push(window.ChemicalTooltip.init(configs.chemical));",
     "  };",
     "  if (document.readyState === 'loading') {",
     "    document.addEventListener('DOMContentLoaded', window.BioTooltipsR.init);",

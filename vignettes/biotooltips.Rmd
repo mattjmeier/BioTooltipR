@@ -45,7 +45,7 @@ top_genes <- data.frame(
 
 top_genes |>
   gene_column(symbol, species = "human") |>
-  bt_kable()
+  bt_kable(include_setup = FALSE)
 ```
 
 The important detail is that HTML escaping must be disabled for the table cell containing tooltip spans. `bt_kable()` does this by default.
