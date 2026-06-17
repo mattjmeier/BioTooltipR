@@ -8,4 +8,7 @@ version = "0.1.0"
 [tasks]
 
 [dependencies]
-r-base = ">=4.6.0,<4.7"
+r-base = ">=4.3.0"
+r-devtools = ">=2.5.2,<3"
+r-dt = ">=0.34.0,<0.35"
+r-remotes = ">=2.5.0,<3"

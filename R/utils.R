@@ -45,7 +45,7 @@ bt_make_span <- function(label, class, attrs = list()) {
   label <- as.character(label)
   n <- length(label)
   if (n == 0L) {
-    return(htmltools::HTML(character()))
+    return(structure(character(), class = c("html", "character")))
   }
 
   attrs <- lapply(names(attrs), function(name) bt_recycle(attrs[[name]], n, name)) |>
@@ -71,7 +71,7 @@ bt_make_span <- function(label, class, attrs = list()) {
     )
   }
 
-  htmltools::HTML(out)
+  structure(out, class = c("html", "character"))
 }
 
 bt_resolve_column <- function(data, expr, value, arg = "column") {
