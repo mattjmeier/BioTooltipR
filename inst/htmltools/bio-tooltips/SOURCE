@@ -15,3 +15,11 @@ Copied files:
   bio-tooltips.css
   bio-tooltips.global.js
   LICENSE
+
+The npm tarball used for vendoring had shasum:
+
+  4161c85e4c6d2af818079ba92cabe343eebffac0
+
+The npm tarball integrity field was:
+
+  sha512-KjdyrtDsU95g/5dgIqL4ZXFNXYO8cuYAfUD1b/WVgbj5d7nl4b8rjpUSx6Xc3UtI0nKfjI2EygkuAg2CeVriXw==
