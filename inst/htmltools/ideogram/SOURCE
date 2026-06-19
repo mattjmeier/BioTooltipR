@@ -1,0 +1,17 @@
+These files were copied from the published npm package:
+
+  ideogram@1.53.0
+
+Source package:
+
+  https://www.npmjs.com/package/ideogram/v/1.53.0
+
+npm tarball checksums:
+
+  shasum: 2d161598089d07416cb0df9c9ebdb91af6482d40
+  integrity: sha512-7oRJPvdKBtgRpaQPlQNNDCsVc8AEcA28PfA/mX4JviEcX5kOSsbuYFdUMhjoPeaxTzK8QY0Sq//jZBMmm9pmVA==
+
+Copied files:
+
+  ideogram.min.js
+  LICENSE

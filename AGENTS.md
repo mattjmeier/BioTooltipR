@@ -12,27 +12,29 @@ This repository is an R package that provides a lightweight R Markdown / Quarto 
 
 ## JavaScript asset strategy
 
-The current draft uses CDN assets by default:
-
-- `https://cdn.jsdelivr.net/npm/bio-tooltips@<version>/dist/bio-tooltips.css`
-- `https://cdn.jsdelivr.net/npm/bio-tooltips@<version>/dist/bio-tooltips.global.js`
-
-Before CRAN submission, decide whether to vendor assets under:
+Pinned runtime assets are vendored by default under:
 
 ```text
 inst/htmltools/bio-tooltips/
   bio-tooltips.css
   bio-tooltips.global.js
+inst/htmltools/d3/
+  d3.min.js
+inst/htmltools/ideogram/
+  ideogram.min.js
 ```
 
-If vendoring assets, verify:
+When refreshing assets, verify:
 
 1. the JS package version is pinned;
 2. licenses are compatible and included;
 3. generated files are copied from a clean `npm run build` of `bio-tooltips`;
 4. no source maps, dev-only files, or large optional assets are accidentally included.
 
-Use `scripts/vendor-bio-tooltips.R` as the intended starting point for local asset copying. Do not download external assets at install time.
+Use `scripts/vendor-bio-tooltips.R` for the main bundle and
+`scripts/vendor-visual-dependencies.R` for D3 and Ideogram. Keep the matching
+license and source metadata files. Do not download external assets at install
+time. CDN use remains an explicit opt-in.
 
 ## API rules
 

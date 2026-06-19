@@ -24,6 +24,10 @@ test_that("bt_plotly_gene_hover wraps a plotly widget with cursor anchor", {
   expect_match(html, "plotly_unhover", fixed = TRUE)
   expect_match(html, "geneSource", fixed = TRUE)
   expect_match(html, "point[config.geneSource]", fixed = TRUE)
+  expect_match(html, "trace && trace.key", fixed = TRUE)
+  expect_match(html, "point.pointNumber", fixed = TRUE)
+  expect_match(html, "window.GeneTooltip.init", fixed = TRUE)
+  expect_match(html, "gene._tippy.show", fixed = TRUE)
   expect_match(html, "\"hoverinfo\":\"none\"", fixed = TRUE)
 })
 

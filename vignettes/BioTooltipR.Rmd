@@ -16,8 +16,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```{r setup}
 library(BioTooltipR)
 use_bio_tooltips(
-  modules = c("gene", "chemical"),
-  include_optional_visual_deps = FALSE
+  modules = c("gene", "chemical")
 )
 ```
 
@@ -55,8 +54,11 @@ The important detail is that HTML escaping must be disabled for the table cell c
 
 ## Assets
 
-`use_bio_tooltips()` uses vendored `bio-tooltips` 1.0.1 browser assets by
-default, so building this vignette does not download JavaScript or CSS files.
+`use_bio_tooltips()` uses vendored `bio-tooltips` 1.0.1, D3 7.9.0, and
+Ideogram 1.53.0 browser assets by default, so building this vignette does not
+download JavaScript or CSS files. D3 and Ideogram are included automatically
+when the gene module is enabled because they render the gene model and
+chromosome ideogram.
 To use jsDelivr-hosted assets in a rendered report, opt in explicitly:
 
 ```{r cdn-demo, eval=FALSE}

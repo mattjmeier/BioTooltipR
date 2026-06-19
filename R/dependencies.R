@@ -71,9 +71,10 @@ bio_tooltips_dependency <- function(cdn = FALSE,
 #'   visuals. Passed as `visualPreload`.
 #' @param debug_timings Log Bio Tooltips timing diagnostics in the browser.
 #' @param tooltip_width,tooltip_height Optional tooltip dimensions.
-#' @param include_optional_visual_deps Include CDN dependencies for D3 and
+#' @param include_optional_visual_deps Include dependencies for D3 and
 #'   Ideogram. The default, `"auto"`, includes them when the gene module is
 #'   initialized because Bio Tooltips gene visuals use these peer dependencies.
+#'   Vendored files are used by default and CDN files are used when `cdn = TRUE`.
 #'   Use `FALSE` to opt out, for example when gene visuals are disabled.
 #' @param d3_version,ideogram_version Versions used when optional visual
 #'   dependencies are included.
@@ -170,32 +171,66 @@ use_bio_tooltips <- function(modules = c("gene", "chemical"),
     "})();"
   )
 
-  deps <- list(bio_tooltips_dependency(cdn = cdn, version = version, local_path = local_path))
+  deps <- list()
   include_visual_deps <- bt_include_visual_deps(include_optional_visual_deps, modules)
 
   if (include_visual_deps) {
     deps <- c(deps, list(
-      htmltools::htmlDependency(
+      bt_visual_dependency(
         name = "d3",
         version = d3_version,
-        src = c(href = sprintf("https://cdn.jsdelivr.net/npm/d3@%s/dist", d3_version)),
-        script = "d3.min.js",
-        all_files = FALSE
+        cdn = cdn,
+        cdn_path = "dist",
+        script = "d3.min.js"
       ),
-      htmltools::htmlDependency(
+      bt_visual_dependency(
         name = "ideogram",
         version = ideogram_version,
-        src = c(href = sprintf("https://cdn.jsdelivr.net/npm/ideogram@%s/dist/js", ideogram_version)),
-        script = "ideogram.min.js",
-        all_files = FALSE
+        cdn = cdn,
+        cdn_path = "dist/js",
+        script = "ideogram.min.js"
       )
     ))
   }
+
+  # Load globals used by the Bio Tooltips bundle before the bundle itself.
+  deps <- c(deps, list(
+    bio_tooltips_dependency(cdn = cdn, version = version, local_path = local_path)
+  ))
 
   htmltools::singleton(htmltools::tagList(
     deps,
     htmltools::tags$script(htmltools::HTML(paste(init_lines, collapse = "\n")))
   ))
+}
+
+bt_visual_dependency <- function(name, version, cdn, cdn_path, script) {
+  if (isTRUE(cdn)) {
+    src <- c(href = sprintf(
+      "https://cdn.jsdelivr.net/npm/%s@%s/%s",
+      name,
+      version,
+      cdn_path
+    ))
+  } else {
+    src <- system.file("htmltools", name, package = "BioTooltipR")
+    asset <- file.path(src, script)
+    if (!nzchar(src) || !file.exists(asset)) {
+      stop(
+        "Local ", name, " assets were not found under inst/htmltools/", name,
+        ". Use `cdn = TRUE` or vendor the pinned visual dependencies.",
+        call. = FALSE
+      )
+    }
+  }
+
+  htmltools::htmlDependency(
+    name = name,
+    version = version,
+    src = src,
+    script = script,
+    all_files = FALSE
+  )
 }
 
 bt_include_visual_deps <- function(include_optional_visual_deps, modules) {

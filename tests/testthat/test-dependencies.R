@@ -55,6 +55,18 @@ test_that("use_bio_tooltips includes gene visual peer dependencies automatically
   expect_true("bio-tooltips" %in% dep_names)
   expect_true("d3" %in% dep_names)
   expect_true("ideogram" %in% dep_names)
+  expect_false(is.null(deps[[match("d3", dep_names)]]$src$file))
+  expect_false(is.null(deps[[match("ideogram", dep_names)]]$src$file))
+  expect_lt(match("d3", dep_names), match("bio-tooltips", dep_names))
+  expect_lt(match("ideogram", dep_names), match("bio-tooltips", dep_names))
+})
+
+test_that("use_bio_tooltips uses CDN visual dependencies when requested", {
+  deps <- htmltools::findDependencies(use_bio_tooltips(modules = "gene", cdn = TRUE))
+  dep_names <- vapply(deps, `[[`, character(1), "name")
+
+  expect_match(deps[[match("d3", dep_names)]]$src$href, "cdn.jsdelivr.net", fixed = TRUE)
+  expect_match(deps[[match("ideogram", dep_names)]]$src$href, "cdn.jsdelivr.net", fixed = TRUE)
 })
 
 test_that("use_bio_tooltips does not include gene visual peer dependencies for chemical-only output", {

@@ -1,0 +1,17 @@
+These files were copied from the published npm package:
+
+  d3@7.9.0
+
+Source package:
+
+  https://www.npmjs.com/package/d3/v/7.9.0
+
+npm tarball checksums:
+
+  shasum: 579e7acb3d749caf8860bd1741ae8d371070cd5d
+  integrity: sha512-e1U46jVP+w7Iut8Jt8ri1YsPOvFpg46k+K8TpCb0P+zjCkjkPnV7WzfDJzMHy1LnA+wj5pLT1wjO901gLXeEhA==
+
+Copied files:
+
+  d3.min.js
+  LICENSE

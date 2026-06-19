@@ -46,9 +46,10 @@ visuals. Passed as \code{visualPreload}.}
 
 \item{tooltip_width, tooltip_height}{Optional tooltip dimensions.}
 
-\item{include_optional_visual_deps}{Include CDN dependencies for D3 and
+\item{include_optional_visual_deps}{Include dependencies for D3 and
 Ideogram. The default, \code{"auto"}, includes them when the gene module is
 initialized because Bio Tooltips gene visuals use these peer dependencies.
+Vendored files are used by default and CDN files are used when \code{cdn = TRUE}.
 Use \code{FALSE} to opt out, for example when gene visuals are disabled.}
 
 \item{d3_version, ideogram_version}{Versions used when optional visual
