@@ -13,7 +13,7 @@
 #' @return An `htmltools::htmlDependency` object.
 #' @export
 bio_tooltips_dependency <- function(cdn = FALSE,
-                                    version = "1.0.1",
+                                    version = "1.0.2",
                                     local_path = NULL) {
   version <- as.character(version)
   dependency_version <- bt_dependency_version(version)
@@ -88,7 +88,7 @@ bio_tooltips_dependency <- function(cdn = FALSE,
 #' use_bio_tooltips(modules = "gene", theme = "light")
 use_bio_tooltips <- function(modules = c("gene", "chemical"),
                              cdn = FALSE,
-                             version = "1.0.1",
+                             version = "1.0.2",
                              theme = "auto",
                              prefetch = "smart",
                              gene_selector = ".gene-tooltip",
