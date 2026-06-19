@@ -4,7 +4,7 @@
 \alias{bio_tooltips_dependency}
 \title{Bio Tooltips HTML dependency}
 \usage{
-bio_tooltips_dependency(cdn = FALSE, version = "1.0.0", local_path = NULL)
+bio_tooltips_dependency(cdn = FALSE, version = "1.0.1", local_path = NULL)
 }
 \arguments{
 \item{cdn}{Use jsDelivr CDN assets instead of the vendored package assets.

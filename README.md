@@ -83,10 +83,10 @@ This feature is intentionally opt-in because many gene symbols are ordinary Engl
 
 ## Asset strategy
 
-By default, `use_bio_tooltips()` uses vendored `bio-tooltips` 1.0.0
+By default, `use_bio_tooltips()` uses vendored `bio-tooltips` 1.0.1
 browser assets included with this R package. CDN assets remain available when
 explicitly requested:
 
 ```r
-use_bio_tooltips(cdn = TRUE, version = "1.0.0")
+use_bio_tooltips(cdn = TRUE, version = "1.0.1")
 ```

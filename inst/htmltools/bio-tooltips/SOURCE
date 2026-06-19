@@ -1,25 +1,22 @@
 These files were copied from the published npm package:
 
-  bio-tooltips@1.0.0
+  bio-tooltips@1.0.1
 
 Source package:
 
-  https://www.npmjs.com/package/bio-tooltips/v/1.0.0
+  https://www.npmjs.com/package/bio-tooltips/v/1.0.1
 
 Original source repository:
 
   https://github.com/mattjmeier/bio-tooltips
+
+npm tarball checksums:
+
+  shasum: b562fe4e0112f2107a63e96f83527974c79abdb1
+  integrity: sha512-QfqsoJ+805K5G0WQzwZIjTkaf80b6nOsTsL+Mt/jR8ZiGdLvnNRZ0cP1i6pztR/G5Sbw+/YWLwpXypa1Slz+IQ==
 
 Copied files:
 
   bio-tooltips.css
   bio-tooltips.global.js
   LICENSE
-
-The npm tarball used for vendoring had shasum:
-
-  4161c85e4c6d2af818079ba92cabe343eebffac0
-
-The npm tarball integrity field was:
-
-  sha512-KjdyrtDsU95g/5dgIqL4ZXFNXYO8cuYAfUD1b/WVgbj5d7nl4b8rjpUSx6Xc3UtI0nKfjI2EygkuAg2CeVriXw==
