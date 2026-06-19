@@ -2,7 +2,7 @@
 authors = ["mattjmeier <matthew.james.meier@gmail.com>"]
 channels = ["conda-forge"]
 name = "BioTooltipR"
-platforms = ["win-64"]
+platforms = ["win-64", "linux-64"]
 version = "0.1.0"
 
 [tasks]
