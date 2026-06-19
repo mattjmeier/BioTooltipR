@@ -168,12 +168,28 @@ updates a tiny fixed-position Bio Tooltip span at the cursor.
 
 ## Experimental auto-linking
 
-If prose is already rendered, `auto_gene_tooltips()` can wrap a supplied vocabulary of gene symbols in a constrained selector. This should be used carefully because some gene symbols are ordinary words.
+If prose is already rendered, `auto_gene_tooltips()` can wrap a supplied
+vocabulary of gene symbols in a constrained selector. This should be used
+carefully because some gene symbols are ordinary words.
 
-```{r auto-demo, eval=FALSE}
+The following sentence is ordinary Markdown rather than a collection of calls
+to `gene_tt()`. Hover over a mouse gene symbol to see the auto-linking in
+action.
+
+::: {.auto-link-demo}
+In mouse, Trp53 and Brca1 help maintain genome integrity, while Gadd45a is
+involved in the response to DNA damage.
+:::
+
+```{r auto-demo}
 auto_gene_tooltips(
-  genes = c("TP53", "BRCA1", "GADD45A"),
-  species = "human",
-  selector = ".results-section"
+  genes = c("Trp53", "Brca1", "Gadd45a"),
+  species = "mouse",
+  selector = ".auto-link-demo",
+  include_setup = FALSE
 )
 ```
+
+Using a dedicated selector keeps the scan inside this example. The
+mouse-specific vocabulary also avoids matching the human gene symbols used in
+earlier sections of the vignette.
