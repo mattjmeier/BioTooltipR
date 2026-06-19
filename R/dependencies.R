@@ -2,8 +2,9 @@
 #'
 #' Creates the `htmltools` dependency for the browser-side Bio Tooltips bundle.
 #'
-#' @param cdn Use jsDelivr CDN assets. If `FALSE`, the package looks for local
-#'   vendored assets under `inst/htmltools/bio-tooltips/` or `local_path`.
+#' @param cdn Use jsDelivr CDN assets instead of the vendored package assets.
+#'   If `FALSE`, the package looks for local assets under
+#'   `inst/htmltools/bio-tooltips/` or `local_path`.
 #' @param version JavaScript package version. Use a pinned version for
 #'   reproducible reports.
 #' @param local_path Optional path containing `bio-tooltips.css` and
@@ -11,8 +12,8 @@
 #'
 #' @return An `htmltools::htmlDependency` object.
 #' @export
-bio_tooltips_dependency <- function(cdn = TRUE,
-                                    version = "latest",
+bio_tooltips_dependency <- function(cdn = FALSE,
+                                    version = "1.0.0",
                                     local_path = NULL) {
   version <- as.character(version)
   dependency_version <- bt_dependency_version(version)
@@ -58,9 +59,10 @@ bio_tooltips_dependency <- function(cdn = TRUE,
 #' selected modules after the DOM is ready.
 #'
 #' @param modules Character vector containing `"gene"`, `"chemical"`, or both.
-#' @param cdn Use jsDelivr CDN assets. See [bio_tooltips_dependency()].
+#' @param cdn Use jsDelivr CDN assets instead of the vendored package assets.
+#'   See [bio_tooltips_dependency()].
 #' @param version JavaScript package version. Use a pinned version for
-#'   reproducibility, or `"latest"` while developing.
+#'   reproducibility.
 #' @param theme Tooltip theme passed to Bio Tooltips.
 #' @param prefetch Prefetch strategy passed to Bio Tooltips.
 #' @param gene_selector CSS selector for gene tooltip elements.
@@ -84,8 +86,8 @@ bio_tooltips_dependency <- function(cdn = TRUE,
 #' use_bio_tooltips()
 #' use_bio_tooltips(modules = "gene", theme = "light")
 use_bio_tooltips <- function(modules = c("gene", "chemical"),
-                             cdn = TRUE,
-                             version = "latest",
+                             cdn = FALSE,
+                             version = "1.0.0",
                              theme = "auto",
                              prefetch = "smart",
                              gene_selector = ".gene-tooltip",

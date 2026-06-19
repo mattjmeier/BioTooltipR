@@ -1,10 +1,17 @@
 # Local Bio Tooltips assets
 
-This directory is intentionally empty in the initial draft package.
+This directory contains pinned runtime assets from the `bio-tooltips`
+JavaScript package.
 
-Before a CRAN release, decide whether to vendor pinned Bio Tooltips browser assets here:
+Vendored version:
+
+- `bio-tooltips` 1.0.0
+
+Runtime files:
 
 - `bio-tooltips.css`
 - `bio-tooltips.global.js`
 
-Use `scripts/vendor-bio-tooltips.R` to copy these files from a locally built `bio-tooltips` JavaScript repository. The package currently uses CDN assets by default.
+Use `scripts/vendor-bio-tooltips.R` to refresh these files from a locally built
+`bio-tooltips` JavaScript repository. Do not download external assets at R
+package install time.

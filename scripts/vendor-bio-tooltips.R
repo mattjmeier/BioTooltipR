@@ -22,5 +22,48 @@ if (length(missing)) {
 
 dest <- file.path("inst", "htmltools", "bio-tooltips")
 dir.create(dest, recursive = TRUE, showWarnings = FALSE)
-file.copy(file.path(src, required), dest, overwrite = TRUE)
+copied <- file.copy(file.path(src, required), dest, overwrite = TRUE)
+if (!all(copied)) {
+  stop("Failed to copy one or more Bio Tooltips assets.", call. = FALSE)
+}
+
+license <- file.path(src_root, "LICENSE")
+if (file.exists(license)) {
+  copied_license <- file.copy(license, file.path(dest, "LICENSE"), overwrite = TRUE)
+  if (!copied_license) {
+    stop("Failed to copy Bio Tooltips LICENSE.", call. = FALSE)
+  }
+}
+
+package_json <- file.path(src_root, "package.json")
+version <- "unknown"
+if (file.exists(package_json)) {
+  metadata <- jsonlite::fromJSON(package_json)
+  if (!is.null(metadata$version) && nzchar(metadata$version)) {
+    version <- metadata$version
+  }
+}
+
+writeLines(
+  c(
+    "These files were copied from the published npm package:",
+    "",
+    sprintf("  bio-tooltips@%s", version),
+    "",
+    "Source package:",
+    "",
+    sprintf("  https://www.npmjs.com/package/bio-tooltips/v/%s", version),
+    "",
+    "Original source repository:",
+    "",
+    "  https://github.com/mattjmeier/bio-tooltips",
+    "",
+    "Copied files:",
+    "",
+    "  bio-tooltips.css",
+    "  bio-tooltips.global.js",
+    "  LICENSE"
+  ),
+  file.path(dest, "SOURCE")
+)
 message("Copied Bio Tooltips assets to ", dest)

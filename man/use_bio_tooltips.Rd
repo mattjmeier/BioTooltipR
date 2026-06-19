@@ -6,8 +6,8 @@
 \usage{
 use_bio_tooltips(
   modules = c("gene", "chemical"),
-  cdn = TRUE,
-  version = "latest",
+  cdn = FALSE,
+  version = "1.0.0",
   theme = "auto",
   prefetch = "smart",
   gene_selector = ".gene-tooltip",
@@ -25,10 +25,11 @@ use_bio_tooltips(
 \arguments{
 \item{modules}{Character vector containing \code{"gene"}, \code{"chemical"}, or both.}
 
-\item{cdn}{Use jsDelivr CDN assets. See \code{\link[=bio_tooltips_dependency]{bio_tooltips_dependency()}}.}
+\item{cdn}{Use jsDelivr CDN assets instead of the vendored package assets.
+See \code{\link[=bio_tooltips_dependency]{bio_tooltips_dependency()}}.}
 
 \item{version}{JavaScript package version. Use a pinned version for
-reproducibility, or \code{"latest"} while developing.}
+reproducibility.}
 
 \item{theme}{Tooltip theme passed to Bio Tooltips.}
 

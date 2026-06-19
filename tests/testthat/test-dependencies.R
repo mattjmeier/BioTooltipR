@@ -1,25 +1,34 @@
-test_that("bio_tooltips_dependency uses CDN paths", {
-  dep <- bio_tooltips_dependency(version = "1.0.1")
+test_that("bio_tooltips_dependency uses vendored assets by default", {
+  dep <- bio_tooltips_dependency()
   expect_equal(dep$name, "bio-tooltips")
-  expect_equal(dep$version, "1.0.1")
+  expect_equal(dep$version, "1.0.0")
+  expect_false(is.null(dep$src$file))
+  expect_equal(dep$script, "bio-tooltips.global.js")
+  expect_equal(dep$stylesheet, "bio-tooltips.css")
+})
+
+test_that("bio_tooltips_dependency can use CDN paths", {
+  dep <- bio_tooltips_dependency(cdn = TRUE, version = "1.0.0")
+  expect_equal(dep$name, "bio-tooltips")
+  expect_equal(dep$version, "1.0.0")
   expect_true(grepl("cdn.jsdelivr.net", dep$src$href, fixed = TRUE))
 })
 
 test_that("bio_tooltips_dependency accepts latest CDN specifier", {
-  dep <- bio_tooltips_dependency(version = "latest")
+  dep <- bio_tooltips_dependency(cdn = TRUE, version = "latest")
   expect_equal(dep$version, as.character(utils::packageVersion("biotooltips")))
   expect_match(dep$src$href, "@latest", fixed = TRUE)
 })
 
 test_that("use_bio_tooltips emits init script", {
-  tags <- use_bio_tooltips(modules = c("gene", "chemical"), version = "1.0.1")
+  tags <- use_bio_tooltips(modules = c("gene", "chemical"), version = "1.0.0")
   html <- as.character(htmltools::renderTags(tags)$html)
   expect_match(html, "GeneTooltip.init", fixed = TRUE)
   expect_match(html, "ChemicalTooltip.init", fixed = TRUE)
 })
 
 test_that("use_bio_tooltips cleans up previous module instances before reinitializing", {
-  tags <- use_bio_tooltips(modules = c("gene", "chemical"), version = "1.0.1")
+  tags <- use_bio_tooltips(modules = c("gene", "chemical"), version = "1.0.0")
   html <- as.character(htmltools::renderTags(tags)$html)
 
   expect_match(html, "window.BioTooltipsR.cleanup = function ()", fixed = TRUE)
@@ -39,7 +48,7 @@ test_that("use_bio_tooltips cleans up previous module instances before reinitial
 })
 
 test_that("use_bio_tooltips includes gene visual peer dependencies automatically", {
-  tags <- use_bio_tooltips(modules = "gene", version = "1.0.1")
+  tags <- use_bio_tooltips(modules = "gene", version = "1.0.0")
   deps <- htmltools::findDependencies(tags)
   dep_names <- vapply(deps, `[[`, character(1), "name")
 
@@ -49,7 +58,7 @@ test_that("use_bio_tooltips includes gene visual peer dependencies automatically
 })
 
 test_that("use_bio_tooltips does not include gene visual peer dependencies for chemical-only output", {
-  tags <- use_bio_tooltips(modules = "chemical", version = "1.0.1")
+  tags <- use_bio_tooltips(modules = "chemical", version = "1.0.0")
   deps <- htmltools::findDependencies(tags)
   dep_names <- vapply(deps, `[[`, character(1), "name")
 
@@ -61,7 +70,7 @@ test_that("use_bio_tooltips does not include gene visual peer dependencies for c
 test_that("use_bio_tooltips can opt out of gene visual peer dependencies", {
   tags <- use_bio_tooltips(
     modules = "gene",
-    version = "1.0.1",
+    version = "1.0.0",
     include_optional_visual_deps = FALSE
   )
   deps <- htmltools::findDependencies(tags)

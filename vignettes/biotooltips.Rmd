@@ -15,7 +15,10 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 
 ```{r setup}
 library(biotooltips)
-use_bio_tooltips(modules = c("gene", "chemical"))
+use_bio_tooltips(
+  modules = c("gene", "chemical"),
+  include_optional_visual_deps = FALSE
+)
 ```
 
 `biotooltips` adds small HTML spans to R Markdown output and lets the browser-side Bio Tooltips JavaScript library do the lookup and rendering.
@@ -49,6 +52,16 @@ top_genes |>
 ```
 
 The important detail is that HTML escaping must be disabled for the table cell containing tooltip spans. `bt_kable()` does this by default.
+
+## Assets
+
+`use_bio_tooltips()` uses vendored `bio-tooltips` 1.0.0 browser assets by
+default, so building this vignette does not download JavaScript or CSS files.
+To use jsDelivr-hosted assets in a rendered report, opt in explicitly:
+
+```{r cdn-demo, eval=FALSE}
+use_bio_tooltips(cdn = TRUE, version = "1.0.0")
+```
 
 ## Volcano plot
 
@@ -108,19 +121,17 @@ volcano$direction <- factor(
   volcano$direction,
   levels = c("Up-regulated", "Down-regulated", "Not significant")
 )
-volcano$tooltip_html <- as.character(gene_tt(volcano$symbol, species = "human"))
 volcano$label <- ifelse(volcano$symbol %in% interesting$symbol, volcano$symbol, "")
 
 volcano_plot <- plotly::plot_ly(
   volcano,
   x = ~log2FoldChange,
   y = ~neg_log10_padj,
+  key = ~symbol,
   type = "scatter",
   mode = "markers+text",
   text = ~label,
   textposition = "top center",
-  hoverinfo = "none",
-  customdata = ~tooltip_html,
   color = ~direction,
   colors = c(
     "Up-regulated" = "#b91c1c",
@@ -143,103 +154,15 @@ volcano_plot <- plotly::plot_ly(
       list(type = "line", x0 = -3.2, x1 = 3.2, y0 = -log10(0.05), y1 = -log10(0.05),
            line = list(color = "#b7bdc5", width = 1, dash = "dot"))
     )
-  ) |>
-  htmlwidgets::onRender(
-    "
-    function(el) {
-      var cursor = { x: 0, y: 0 };
-
-      function activeTarget() {
-        var wrapper = el.closest('.bt-volcano-demo');
-        return wrapper ? wrapper.querySelector('.bt-volcano-cursor-gene') : null;
-      }
-
-      function updateCursor(event) {
-        if (!event || typeof event.clientX !== 'number') return;
-        cursor.x = event.clientX;
-        cursor.y = event.clientY;
-        positionTarget();
-      }
-
-      function positionTarget() {
-        var target = activeTarget();
-        if (!target) return;
-
-        target.style.left = cursor.x + 'px';
-        target.style.top = cursor.y + 'px';
-      }
-
-      function initializeBioTooltips() {
-        if (window.BioTooltipsR && typeof window.BioTooltipsR.init === 'function') {
-          window.BioTooltipsR.init();
-        }
-      }
-
-      el.addEventListener('mousemove', updateCursor);
-
-      el.on('plotly_hover', function(eventData) {
-        var target = activeTarget();
-        var point = eventData && eventData.points && eventData.points[0];
-        updateCursor(eventData && eventData.event);
-        if (!target || !point || !point.customdata) return;
-
-        target.innerHTML = point.customdata;
-        target.classList.add('is-active');
-        initializeBioTooltips();
-
-        var gene = target.querySelector('.gene-tooltip');
-        if (gene) {
-          gene.dispatchEvent(new MouseEvent('mouseover', { bubbles: true, view: window }));
-          gene.dispatchEvent(new MouseEvent('mouseenter', { bubbles: false, view: window }));
-        }
-      });
-
-      el.on('plotly_unhover', function() {
-        var target = activeTarget();
-        if (!target) return;
-
-        var gene = target.querySelector('.gene-tooltip');
-        if (gene) {
-          gene.dispatchEvent(new MouseEvent('mouseout', { bubbles: true, view: window }));
-          gene.dispatchEvent(new MouseEvent('mouseleave', { bubbles: false, view: window }));
-        }
-        target.classList.remove('is-active');
-      });
-    }
-    "
   )
 
-htmltools::tagList(
-  htmltools::tags$style(htmltools::HTML("
-    .bt-volcano-demo .bt-volcano-cursor-gene {
-      position: fixed;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 2147483647;
-    }
-
-    .bt-volcano-demo .bt-volcano-cursor-gene .gene-tooltip {
-      display: inline-block;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      opacity: 0;
-    }
-  ")),
-  htmltools::tags$div(
-    class = "bt-volcano-demo",
-    volcano_plot,
-    htmltools::tags$span(class = "bt-volcano-cursor-gene")
-  )
-)
+bt_plotly_gene_hover(volcano_plot, species = "human", include_setup = FALSE)
 }
 ```
 
 Plotly still owns the hover event, but its default hover card is suppressed.
-The event updates a tiny fixed-position `gene_tt()` span at the cursor so Bio
-Tooltips can use its usual DOM-based positioning.
+`bt_plotly_gene_hover()` reads the gene symbol from Plotly's `key` field and
+updates a tiny fixed-position Bio Tooltip span at the cursor.
 
 ## Experimental auto-linking
 

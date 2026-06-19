@@ -4,11 +4,12 @@
 \alias{bio_tooltips_dependency}
 \title{Bio Tooltips HTML dependency}
 \usage{
-bio_tooltips_dependency(cdn = TRUE, version = "latest", local_path = NULL)
+bio_tooltips_dependency(cdn = FALSE, version = "1.0.0", local_path = NULL)
 }
 \arguments{
-\item{cdn}{Use jsDelivr CDN assets. If \code{FALSE}, the package looks for local
-vendored assets under \verb{inst/htmltools/bio-tooltips/} or \code{local_path}.}
+\item{cdn}{Use jsDelivr CDN assets instead of the vendored package assets.
+If \code{FALSE}, the package looks for local assets under
+\verb{inst/htmltools/bio-tooltips/} or \code{local_path}.}
 
 \item{version}{JavaScript package version. Use a pinned version for
 reproducible reports.}
