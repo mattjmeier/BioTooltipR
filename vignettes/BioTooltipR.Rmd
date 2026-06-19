@@ -55,12 +55,12 @@ The important detail is that HTML escaping must be disabled for the table cell c
 
 ## Assets
 
-`use_bio_tooltips()` uses vendored `bio-tooltips` 1.0.0 browser assets by
+`use_bio_tooltips()` uses vendored `bio-tooltips` 1.0.1 browser assets by
 default, so building this vignette does not download JavaScript or CSS files.
 To use jsDelivr-hosted assets in a rendered report, opt in explicitly:
 
 ```{r cdn-demo, eval=FALSE}
-use_bio_tooltips(cdn = TRUE, version = "1.0.0")
+use_bio_tooltips(cdn = TRUE, version = "1.0.1")
 ```
 
 ## Volcano plot
