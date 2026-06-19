@@ -83,6 +83,7 @@ jobs:
           git checkout -B "$BRANCH"
           git add -A
           git commit -m "Vendor bio-tooltips $VERSION"
+          git fetch origin "$BRANCH:refs/remotes/origin/$BRANCH" || true
           git push --force-with-lease origin "$BRANCH"
 
           body="Updates the vendored Bio Tooltips browser assets to \`bio-tooltips@$VERSION\`.
