@@ -22,6 +22,8 @@ Imports:
     utils
 Suggests:
     DT,
+    htmlwidgets,
+    plotly,
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
