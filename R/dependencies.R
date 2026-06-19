@@ -29,7 +29,7 @@ bio_tooltips_dependency <- function(cdn = FALSE,
     ))
   }
 
-  path <- local_path %||% system.file("htmltools", "bio-tooltips", package = "biotooltips")
+  path <- local_path %||% system.file("htmltools", "bio-tooltips", package = "BioTooltipR")
   js <- file.path(path, "bio-tooltips.global.js")
   css <- file.path(path, "bio-tooltips.css")
 
@@ -223,7 +223,7 @@ bt_dependency_version <- function(version) {
   }
 
   if (identical(version, "latest")) {
-    return(as.character(utils::packageVersion("biotooltips")))
+    return(as.character(utils::packageVersion("BioTooltipR")))
   }
 
   version

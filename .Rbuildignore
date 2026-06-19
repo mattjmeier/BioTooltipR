@@ -5,7 +5,7 @@
 ^scripts$
 ^README\.Rmd$
 ^pkgdown$
-^biotooltips\.Rproj$
+^BioTooltipR\.Rproj$
 ^\.pixi$
 ^pixi\.lock$
 ^pixi\.toml$
