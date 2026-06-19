@@ -1,10 +1,10 @@
 ---
-title: "Adding Bio Tooltips to R Markdown reports"
+title: "Adding BioTooltipR to R Markdown reports"
 output:
   rmarkdown::html_vignette:
     self_contained: true
 vignette: >
-  %\VignetteIndexEntry{Adding Bio Tooltips to R Markdown reports}
+  %\VignetteIndexEntry{Adding BioTooltipR to R Markdown reports}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,14 +14,14 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
 ```{r setup}
-library(biotooltips)
+library(BioTooltipR)
 use_bio_tooltips(
   modules = c("gene", "chemical"),
   include_optional_visual_deps = FALSE
 )
 ```
 
-`biotooltips` adds small HTML spans to R Markdown output and lets the browser-side Bio Tooltips JavaScript library do the lookup and rendering.
+`BioTooltipR` adds small HTML spans to R Markdown output and lets the browser-side `bio-tooltips` JavaScript library do the lookup and rendering.
 
 ## Inline prose
 

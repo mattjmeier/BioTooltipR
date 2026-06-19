@@ -1,4 +1,4 @@
-# Agent Notes for `biotooltips`
+# Agent Notes for `BioTooltipR`
 
 This repository is an R package that provides a lightweight R Markdown / Quarto / HTML reporting layer around the JavaScript package `bio-tooltips`.
 

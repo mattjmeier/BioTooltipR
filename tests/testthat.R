@@ -1,4 +1,4 @@
 library(testthat)
-library(biotooltips)
+library(BioTooltipR)
 
-test_check("biotooltips")
+test_check("BioTooltipR")

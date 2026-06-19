@@ -1,14 +1,14 @@
 ---
-title: "Bio Tooltips report"
+title: "BioTooltipR report"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(biotooltips)
+library(BioTooltipR)
 ```
 
-```{r bio-tooltips-setup, echo=FALSE}
+```{r biotooltipr-setup, echo=FALSE}
 use_bio_tooltips(modules = c("gene", "chemical"))
 ```
 

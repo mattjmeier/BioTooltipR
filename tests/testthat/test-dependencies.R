@@ -16,7 +16,7 @@ test_that("bio_tooltips_dependency can use CDN paths", {
 
 test_that("bio_tooltips_dependency accepts latest CDN specifier", {
   dep <- bio_tooltips_dependency(cdn = TRUE, version = "latest")
-  expect_equal(dep$version, as.character(utils::packageVersion("biotooltips")))
+  expect_equal(dep$version, as.character(utils::packageVersion("BioTooltipR")))
   expect_match(dep$src$href, "@latest", fixed = TRUE)
 })
 

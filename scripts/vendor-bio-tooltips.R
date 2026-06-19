@@ -15,8 +15,8 @@ usage <- paste(
   sep = "\n"
 )
 
-if (!file.exists("DESCRIPTION") || !identical(read.dcf("DESCRIPTION")[[1L, "Package"]], "biotooltips")) {
-  stop("Run this script from the biotooltips package root.", call. = FALSE)
+if (!file.exists("DESCRIPTION") || !identical(read.dcf("DESCRIPTION")[[1L, "Package"]], "BioTooltipR")) {
+  stop("Run this script from the BioTooltipR package root.", call. = FALSE)
 }
 
 is_npm <- identical(args[[1L]], "--npm-version")
@@ -178,7 +178,7 @@ pin_files <- c(
   "cran-comments.md",
   "inst/htmltools/bio-tooltips/README.md",
   "tests/testthat/test-dependencies.R",
-  "vignettes/biotooltips.Rmd"
+  "vignettes/BioTooltipR.Rmd"
 )
 for (path in pin_files) {
   lines <- readLines(path, warn = FALSE)

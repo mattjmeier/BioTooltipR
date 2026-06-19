@@ -1,11 +1,11 @@
-# biotooltips
+# BioTooltipR
 
-`biotooltips` is a lightweight R helper package for adding [Bio Tooltips](https://mattjmeier.github.io/bio-tooltips/) to R Markdown, Quarto, Shiny, pkgdown, and other HTML reports.
+`BioTooltipR` is a lightweight R helper package for adding browser-side [bio-tooltips](https://mattjmeier.github.io/bio-tooltips/) gene and chemical tooltips to R Markdown, Quarto, Shiny, pkgdown, and other HTML reports.
 
-The package does **not** reimplement Bio Tooltips in R. Instead, it:
+The R package does **not** reimplement the `bio-tooltips` JavaScript library in R. Instead, it:
 
 1. emits ordinary HTML spans such as `<span class="gene-tooltip">TP53</span>`;
-2. attaches the Bio Tooltips JavaScript/CSS bundle through `htmltools`;
+2. attaches the `bio-tooltips` JavaScript/CSS bundle through `htmltools`;
 3. makes common R reporting patterns pleasant, especially inline prose and tables.
 
 ## Installation
@@ -14,7 +14,7 @@ Development version:
 
 ```r
 # install.packages("pak")
-pak::pak("mattjmeier/biotooltips")
+pak::pak("mattjmeier/BioTooltipR")
 ```
 
 This is a draft package skeleton. It is not on CRAN yet.
@@ -22,7 +22,7 @@ This is a draft package skeleton. It is not on CRAN yet.
 ## Minimal R Markdown example
 
 ```r
-library(biotooltips)
+library(BioTooltipR)
 
 use_bio_tooltips()
 ```
@@ -43,7 +43,7 @@ chem_tt("caffeine", lookup = "best-guess")
 ## Tables
 
 ```r
-library(biotooltips)
+library(BioTooltipR)
 
 use_bio_tooltips(modules = "gene")
 
@@ -83,9 +83,9 @@ This feature is intentionally opt-in because many gene symbols are ordinary Engl
 
 ## Asset strategy
 
-By default, `use_bio_tooltips()` uses vendored `bio-tooltips` 1.0.0
-browser assets included with this R package. CDN assets remain available when
-explicitly requested:
+By default, `use_bio_tooltips()` uses vendored `bio-tooltips` 1.0.0 browser
+assets included with BioTooltipR. CDN assets remain available when explicitly
+requested:
 
 ```r
 use_bio_tooltips(cdn = TRUE, version = "1.0.0")
