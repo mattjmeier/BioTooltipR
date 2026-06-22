@@ -11,3 +11,8 @@
 ^pixi\.toml$
 ^doc$
 ^Meta$
+^\.git$
+^\.git/
+^\.Rproj\.user$
+^\.vscode$
+^\.positron$
