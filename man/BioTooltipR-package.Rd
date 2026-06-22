@@ -21,10 +21,5 @@ Useful links:
 \author{
 \strong{Maintainer}: Matthew J. Meier \email{matthew.james.meier@gmail.com}
 
-Authors:
-\itemize{
-  \item Matthew J. Meier \email{matthew.james.meier@gmail.com}
-}
-
 }
 \keyword{internal}
