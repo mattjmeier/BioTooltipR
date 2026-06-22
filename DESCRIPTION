@@ -10,6 +10,7 @@ Description: Provides lightweight helpers for adding gene and chemical
     through 'htmltools'. Entity lookup and rendering are handled in the
     browser by 'bio-tooltips'; this package does not query biological
     databases from R during package checks.
+Language: en-US
 License: MIT + file LICENSE
 URL: https://github.com/mattjmeier/BioTooltipR
 BugReports: https://github.com/mattjmeier/BioTooltipR/issues
