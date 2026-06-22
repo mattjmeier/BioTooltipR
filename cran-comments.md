@@ -1,15 +1,27 @@
 # CRAN submission notes
 
-This is a development draft and has not yet been submitted to CRAN.
+## Test environments
+
+* local Windows 11, R 4.5.3
+* GitHub Actions ubuntu-latest, R release
+* GitHub Actions macos-latest, R release
+* GitHub Actions windows-latest, R release
+* win-builder, R-devel
+
+## R CMD check results
+
+0 errors | 0 warnings | 0 notes
 
 ## Reverse dependencies
 
-None.
+This is a new submission. There are no reverse dependencies.
 
-## Notes for future submission
+## Additional notes
 
-- The pinned `bio-tooltips`, D3, and Ideogram browser assets and their licenses
-  are vendored under `inst/htmltools/`.
-- CDN assets are supported only when users explicitly request them.
-- Run `devtools::check()` or `rcmdcheck::rcmdcheck()` on Linux, macOS, and Windows before submission.
-- Avoid examples that require live external API calls during `R CMD check`; the `bio-tooltips` browser library fetches data client-side only when the rendered HTML is viewed.
+This package vendors pinned browser runtime assets for `bio-tooltips` 1.1.1,
+D3 7.9.0, and Ideogram 1.53.0 under `inst/htmltools/`. The corresponding
+license and source metadata files are included with the vendored assets.
+
+By default, examples, tests, and vignettes use local vendored assets and do not
+download external JavaScript assets during `R CMD check`. CDN use is available
+only when users explicitly request it.
