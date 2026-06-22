@@ -1,13 +1,15 @@
 Package: BioTooltipR
-Title: R Helpers for Bio Tooltips in HTML Reports
-Version: 0.0.0.9000
+Title: Add Bio Tooltips to HTML Reports
+Version: 0.1.0
 Authors@R: 
     person("Matthew J.", "Meier", email = "matthew.james.meier@gmail.com", role = c("aut", "cre"))
-Description: Lightweight R helpers for adding Bio Tooltips gene and chemical
+Description: Provides lightweight helpers for adding gene and chemical
     tooltips to R Markdown, Quarto, Shiny, pkgdown, and other HTML outputs.
     The package emits small HTML spans with module-specific data attributes
-    and attaches the underlying JavaScript and CSS assets from the
-    'bio-tooltips' JavaScript package.
+    and attaches the browser-side 'bio-tooltips' JavaScript and CSS assets
+    through 'htmltools'. Entity lookup and rendering are handled in the
+    browser by 'bio-tooltips'; this package does not query biological
+    databases from R during package checks.
 License: MIT + file LICENSE
 URL: https://github.com/mattjmeier/BioTooltipR
 BugReports: https://github.com/mattjmeier/BioTooltipR/issues

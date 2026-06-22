@@ -1,3 +1,8 @@
+# BioTooltipR 0.1.0
+
+- Finalized package code
+- Added examples to vignette including `plotly` tooltips
+
 # BioTooltipR 0.0.0.9000
 
 ## Added

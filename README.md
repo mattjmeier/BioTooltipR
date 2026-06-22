@@ -10,14 +10,10 @@ The R package does **not** reimplement the `bio-tooltips` JavaScript library in 
 
 ## Installation
 
-Development version:
+Install the released version from CRAN:
 
 ```r
-# install.packages("pak")
-pak::pak("mattjmeier/BioTooltipR")
-```
-
-This is a draft package skeleton. It is not on CRAN yet.
+install.packages("BioTooltipR")
 
 ## Minimal R Markdown example
 
