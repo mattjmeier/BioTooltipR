@@ -10,9 +10,21 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 notes
 
-* This is a new submission.
+Checked on:
+* GitHub Actions macos-latest, R release
+* GitHub Actions windows-latest, R release
+* GitHub Actions ubuntu-latest, R devel
+* GitHub Actions ubuntu-latest, R release
+* GitHub Actions ubuntu-latest, R oldrel-1
+
+Additional local check:
+* Windows, R 4.5.0, --as-cran: 0 errors, 0 warnings, 2 notes
+  * New submission.
+  * Local-only note: "checking for future file timestamps ... unable to verify current time".
+    No files with future timestamps were reported, and GitHub Actions reports
+    "checking for future file timestamps ... OK".
 
 ## Reverse dependencies
 
