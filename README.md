@@ -14,6 +14,7 @@ Install the released version from CRAN:
 
 ```r
 install.packages("BioTooltipR")
+```
 
 ## Minimal R Markdown example
 
