@@ -19,7 +19,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Matthew J. Meier \email{matthew.james.meier@gmail.com}
+\strong{Maintainer}: Matthew J. Meier \email{matthew.meier@hc-sc.gc.ca}
 
 }
 \keyword{internal}

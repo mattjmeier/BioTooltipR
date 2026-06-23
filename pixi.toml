@@ -1,5 +1,5 @@
 [workspace]
-authors = ["mattjmeier <matthew.james.meier@gmail.com>"]
+authors = ["mattjmeier <matthew.meier@hc-sc.gc.ca>"]
 channels = ["conda-forge"]
 name = "BioTooltipR"
 platforms = ["win-64", "linux-64"]

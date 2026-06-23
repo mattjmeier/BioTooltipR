@@ -2,7 +2,7 @@ Package: BioTooltipR
 Title: Add Bio Tooltips to HTML Reports
 Version: 0.1.0
 Authors@R: 
-    person("Matthew J.", "Meier", email = "matthew.james.meier@gmail.com", role = c("aut", "cre"))
+    person("Matthew J.", "Meier", email = "matthew.meier@hc-sc.gc.ca", role = c("aut", "cre"))
 Description: Provides lightweight helpers for adding gene and chemical
     tooltips to R Markdown, Quarto, Shiny, pkgdown, and other HTML outputs.
     The package emits small HTML spans with module-specific data attributes
