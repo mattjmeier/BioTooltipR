@@ -21,5 +21,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Matthew J. Meier \email{matthew.meier@hc-sc.gc.ca}
 
+Authors:
+\itemize{
+  \item Matthew J. Meier \email{matthew.meier@hc-sc.gc.ca}
+}
+
 }
 \keyword{internal}
