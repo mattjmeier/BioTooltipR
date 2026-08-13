@@ -4,7 +4,7 @@ Version: 0.1.0
 Authors@R: 
     person("Matthew J.", "Meier", email = "matthew.meier@hc-sc.gc.ca", role = c("aut", "cre"))
 Description: Provides lightweight helpers for adding gene and chemical
-    tooltips to R Markdown, Quarto, Shiny, pkgdown, and other HTML outputs.
+    tooltips to 'R Markdown', 'Quarto', 'shiny', 'pkgdown', and other HTML outputs.
     The package emits small HTML spans with module-specific data attributes
     and attaches the browser-side 'bio-tooltips' JavaScript and CSS assets
     through 'htmltools'. Entity lookup and rendering are handled in the
