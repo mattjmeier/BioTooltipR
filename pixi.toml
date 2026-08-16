@@ -5,6 +5,9 @@ name = "BioTooltipR"
 platforms = ["win-64", "linux-64"]
 version = "0.1.0"
 
+[activation.env]
+R_LIBS_USER = "NULL"
+
 [tasks]
 
 [dependencies]
