@@ -50,7 +50,6 @@ time. CDN use remains an explicit opt-in.
 Run these before finishing a meaningful change:
 
 ```r
-pak::pak(c("local::.", "testthat"))
 testthat::test_local()
 ```
 
