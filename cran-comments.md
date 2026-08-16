@@ -20,15 +20,11 @@ Checked on:
 * GitHub Actions ubuntu-latest, R oldrel-1
 
 Additional local check:
-* Windows, R 4.5.0, --as-cran: 0 errors, 0 warnings, 2 notes
-  * New submission.
-  * Local-only note: "checking for future file timestamps ... unable to verify current time".
-    No files with future timestamps were reported, and GitHub Actions reports
-    "checking for future file timestamps ... OK".
+* Windows, R 4.5.0, --as-cran: 0 errors, 0 warnings, 0 notes
 
 ## Reverse dependencies
 
-This is a new submission. There are no reverse dependencies.
+There are no reverse dependencies.
 
 ## Additional notes
 
