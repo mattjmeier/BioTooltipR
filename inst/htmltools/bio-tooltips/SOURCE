@@ -1,10 +1,10 @@
 These files were copied from the published npm package:
 
-  bio-tooltips@2.0.3
+  bio-tooltips@2.0.4
 
 Source package:
 
-  https://www.npmjs.com/package/bio-tooltips/v/2.0.3
+  https://www.npmjs.com/package/bio-tooltips/v/2.0.4
 
 Original source repository:
 
@@ -12,8 +12,8 @@ Original source repository:
 
 npm tarball checksums:
 
-  shasum: 979f3b45933834d9ff8a1bcd9698bead5f8446f0
-  integrity: sha512-VQ3bt2ekzd7WhMJ4V+AXAavVvaVXj0o70znutU6uGOBq0HuDzV3RGgLiETKRjzqp26PMqRSOzj0Il1Vds/dapA==
+  shasum: b36dd1c26c42f0c3b99f8ea279a876f819d527b0
+  integrity: sha512-ApCBcyNoKeLpuToDbj3YoYzcHfmIitKx+aRpJkWpPZy8HDxLXOfPTxKrjDkH+cHziwBK16zQrs9P8oRrHg2FMA==
 
 Copied files:
 
