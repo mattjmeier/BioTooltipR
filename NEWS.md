@@ -1,8 +1,7 @@
 # BioTooltipR 0.1.1
 
 - Update dependencies and vendor code
-- Restore Plotly gene hover tooltips with the `bio-tooltips` 2.0.0
-  Floating UI engine.
+- Update tooltips with the `bio-tooltips` v2.0.X Floating UI engine.
 
 # BioTooltipR 0.1.0
 
