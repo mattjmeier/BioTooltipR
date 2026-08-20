@@ -1,5 +1,7 @@
 # BioTooltipR
 
+![CRAN version](https://www.r-pkg.org/badges/version/BioTooltipR)
+
 `BioTooltipR` is a lightweight R helper package for adding browser-side [bio-tooltips](https://mattjmeier.github.io/bio-tooltips/) gene and chemical tooltips to R Markdown, Quarto, Shiny, pkgdown, and other HTML reports.
 
 The R package does **not** reimplement the `bio-tooltips` JavaScript library in R. Instead, it:
@@ -15,6 +17,13 @@ Install the released version from CRAN:
 ```r
 install.packages("BioTooltipR")
 ```
+
+## Documentation
+
+- [BioTooltipR vignette](https://cran.r-project.org/web/packages/BioTooltipR/vignettes/BioTooltipR.html)
+- [Package manual (PDF)](https://cran.r-project.org/web/packages/BioTooltipR/BioTooltipR.pdf)
+- [CRAN package page](https://cran.r-project.org/web/packages/BioTooltipR/index.html)
+- [GitHub repository](https://github.com/mattjmeier/BioTooltipR)
 
 ## Minimal R Markdown example
 
