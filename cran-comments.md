@@ -20,7 +20,7 @@ Checked on:
 * GitHub Actions ubuntu-latest, R oldrel-1
 
 Additional local check:
-* Windows, R 4.5.0, --as-cran: 0 errors, 0 warnings, 0 notes
+* Windows, R 4.5.3, --as-cran: 0 errors, 0 warnings, 0 notes
 
 ## Reverse dependencies
 
