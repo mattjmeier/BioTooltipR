@@ -2,6 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+CRAN-SUBMISSION
 *.tar.gz
 *.Rcheck
 .DS_Store
