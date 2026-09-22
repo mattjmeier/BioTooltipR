@@ -13,3 +13,6 @@ Meta
 !.pixi/config.toml
 /doc/
 /Meta/
+# browser regression test artifacts
+tests/browser/fixture/
+tests/browser/node_modules/

@@ -18,3 +18,4 @@
 ^\.positron$
 ^development$
 ^CRAN-SUBMISSION$
+^tests/browser$

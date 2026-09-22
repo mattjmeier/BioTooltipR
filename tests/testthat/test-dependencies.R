@@ -99,3 +99,16 @@ test_that("use_bio_tooltips validates optional visual dependency mode", {
     fixed = TRUE
   )
 })
+
+test_that("vendored bio-tooltips asset metadata matches the dependency version", {
+  source_file <- system.file("htmltools", "bio-tooltips", "SOURCE", package = "BioTooltipR")
+  skip_if(source_file == "", "vendored SOURCE metadata not found")
+
+  text <- paste(readLines(source_file, warn = FALSE), collapse = "\n")
+  m <- regmatches(text, regexpr("bio-tooltips@[0-9]+\\.[0-9]+\\.[0-9]+", text))
+  skip_if(length(m) == 0, "no bio-tooltips version found in SOURCE metadata")
+
+  dep <- bio_tooltips_dependency()
+  expect_equal(sub("^bio-tooltips@", "", m), dep$version)
+  expect_equal(dep$version, "2.1.0")
+})

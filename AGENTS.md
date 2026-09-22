@@ -53,6 +53,22 @@ Run these before finishing a meaningful change:
 testthat::test_local()
 ```
 
+Browser-level regression tests for the Plotly adapter live in `tests/browser/`
+(excluded from the CRAN build). They render a self-contained fixture, serve it
+on localhost, and drive Chromium via Playwright with MyGene.info mocked; all
+other external requests are aborted. The suite skips cleanly when
+`playwright-core` or a Chromium executable is unavailable (set `CHROME_PATH`
+to point at a browser if auto-discovery fails).
+
+```bash
+pixi run test-browser
+```
+
+Update the fixture (one trace per gene, `window.__bt*` test hooks) in
+`tests/browser/render-fixture.R` and the scenarios in
+`tests/browser/run-tests.mjs` when the adapter behavior changes. Mobile tests
+use a 390x844 viewport with touch enabled.
+
 Before release/submission:
 
 ```r

@@ -17,27 +17,37 @@ bt_plotly_gene_hover(
 \item{plot}{A Plotly htmlwidget.}
 
 \item{species}{Species alias or NCBI taxonomy ID passed through to the
-generated gene tooltip span.}
+generated gene tooltip anchor.}
 
 \item{gene_source}{Plotly point field containing the gene symbol. The default
 uses \code{key}, so build plots with \code{key = ~symbol}.}
 
 \item{hide_plotly_hover}{Suppress Plotly's native hover labels while keeping
-hover events active.}
+hover and click events active.}
 
 \item{include_setup}{Include \code{\link[=use_bio_tooltips]{use_bio_tooltips()}} before the widget. Set this
 to \code{FALSE} when the report already calls \code{\link[=use_bio_tooltips]{use_bio_tooltips()}} once.}
 
-\item{class}{Optional additional CSS class added to the generated gene span.}
+\item{class}{Optional additional CSS class added to the generated gene anchor.}
 }
 \value{
-An HTML tag list containing the Plotly widget and a cursor-following
-Bio Tooltip anchor.
+An HTML tag list containing the Plotly widget and a hidden,
+fixed-position Bio Tooltip anchor.
 }
 \description{
 \code{bt_plotly_gene_hover()} lets a Plotly widget use Bio Tooltips for gene
 hover cards. Map the gene symbol into Plotly's \code{key} aesthetic, then wrap the
 widget with this helper.
+}
+\details{
+Hover over a point on desktop, or tap a point on mobile. On screens at or
+below 600 CSS pixels wide, the tooltip opens as a persistent bottom drawer
+that stays open until another point is selected, the user taps outside the
+drawer, drags it closed, or activates its close button.
+
+The helper attaches one \link[=bio_tooltips_dependency]{bio-tooltips} anchor with
+the programmatic \code{GeneTooltip.attach()} API and reuses it as the selected
+point changes, so repeated renders of the widget do not accumulate listeners.
 }
 \examples{
 if (requireNamespace("plotly", quietly = TRUE)) {
