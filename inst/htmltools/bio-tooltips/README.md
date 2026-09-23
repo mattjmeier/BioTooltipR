@@ -5,7 +5,7 @@ JavaScript package.
 
 Vendored version:
 
-- `bio-tooltips` 2.2.2
+- `bio-tooltips` 2.3.0
 
 Runtime files:
 
