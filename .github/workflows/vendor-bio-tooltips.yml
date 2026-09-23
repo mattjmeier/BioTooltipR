@@ -57,6 +57,13 @@ jobs:
           needs: check
 
       - name: Vendor bio-tooltips assets
+        # A new npm publish is not immediately queryable on the registry, so
+        # retry the fetch for up to ~10 minutes instead of failing on the first
+        # miss. The script retries with exponential backoff (defaults: 6 attempts,
+        # 15s start, 120s cap); CI widens the window a little via these variables.
+        env:
+          BIOTOOLTIPS_MAX_ATTEMPTS: "8"
+          BIOTOOLTIPS_INITIAL_DELAY_SECONDS: "20"
         run: Rscript scripts/vendor-bio-tooltips.R --npm-version "${{ steps.version.outputs.version }}"
 
       - name: Regenerate documentation
