@@ -3,6 +3,7 @@
 ## Test environments
 
 * local Windows, R 4.5.3
+* GitHub Actions (CI): macOS (release), Windows (release), Linux (devel, release, oldrel-1)
 
 ## R CMD check results
 
@@ -10,6 +11,11 @@
 
 Checked on:
 * Windows, R 4.5.3, --as-cran: 0 errors, 0 warnings, 0 notes
+* GitHub Actions, macos-latest, R release, --as-cran: 0 errors, 0 warnings, 0 notes
+* GitHub Actions, windows-latest, R release, --as-cran: 0 errors, 0 warnings, 0 notes
+* GitHub Actions, ubuntu-latest, R devel, --as-cran: 0 errors, 0 warnings, 0 notes
+* GitHub Actions, ubuntu-latest, R release, --as-cran: 0 errors, 0 warnings, 0 notes
+* GitHub Actions, ubuntu-latest, R oldrel-1, --as-cran: 0 errors, 0 warnings, 0 notes
 
 ## Reverse dependencies
 
