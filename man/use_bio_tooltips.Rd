@@ -7,7 +7,7 @@
 use_bio_tooltips(
   modules = c("gene", "chemical"),
   cdn = FALSE,
-  version = "2.3.1",
+  version = "2.3.2",
   theme = "auto",
   prefetch = "smart",
   gene_selector = ".gene-tooltip",
