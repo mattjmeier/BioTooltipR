@@ -2,24 +2,13 @@
 
 ## Test environments
 
-* local Windows 11, R 4.5.3
-* GitHub Actions ubuntu-latest, R release
-* GitHub Actions macos-latest, R release
-* GitHub Actions windows-latest, R release
-* win-builder, R-devel
+* local Windows, R 4.5.3
 
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
 
 Checked on:
-* GitHub Actions macos-latest, R release
-* GitHub Actions windows-latest, R release
-* GitHub Actions ubuntu-latest, R devel
-* GitHub Actions ubuntu-latest, R release
-* GitHub Actions ubuntu-latest, R oldrel-1
-
-Additional local check:
 * Windows, R 4.5.3, --as-cran: 0 errors, 0 warnings, 0 notes
 
 ## Reverse dependencies

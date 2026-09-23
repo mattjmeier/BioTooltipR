@@ -1,4 +1,7 @@
-# BioTooltipR (development version)
+# BioTooltipR 0.1.2
+
+- Updated the vendored `bio-tooltips` runtime to 2.2.2, bringing the latest
+  accessibility and mobile interaction improvements to generated reports.
 
 - `bt_plotly_gene_hover()` now uses the `bio-tooltips` 2.1.0 programmatic
   `GeneTooltip.attach()` adapter instead of reinitializing the global gene

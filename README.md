@@ -20,9 +20,7 @@ install.packages("BioTooltipR")
 
 ## Documentation
 
-- [BioTooltipR vignette](https://cran.r-project.org/web/packages/BioTooltipR/vignettes/BioTooltipR.html)
-- [Package manual (PDF)](https://cran.r-project.org/web/packages/BioTooltipR/BioTooltipR.pdf)
-- [CRAN package page](https://cran.r-project.org/web/packages/BioTooltipR/index.html)
+- [CRAN package page, vignette, and reference manual](https://CRAN.R-project.org/package=BioTooltipR)
 - [GitHub repository](https://github.com/mattjmeier/BioTooltipR)
 
 ## Minimal R Markdown example

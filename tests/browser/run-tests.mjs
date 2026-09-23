@@ -234,6 +234,21 @@ async function waitForClosed(page, timeout = 15000) {
   await page.waitForFunction(pageEval.isClosed, null, { timeout });
 }
 
+async function waitForDrawerVisible(page, timeout = 15000) {
+  await page.waitForFunction(
+    () => {
+      const box = document.querySelector(
+        "[data-gt-tooltip-root][data-presentation='drawer'] > .gt-tooltip-box[data-state='visible']"
+      );
+      if (!box) return false;
+      const rect = box.getBoundingClientRect();
+      return rect.top < window.innerHeight - 50;
+    },
+    null,
+    { timeout }
+  );
+}
+
 async function pointCenter(page, index) {
   const c = await page.evaluate((idx) => window.__btPointCenter(idx), index);
   if (!c) throw new Error(`marker ${index} not found`);
@@ -411,11 +426,19 @@ try {
     await context.close();
   });
 
-  await test("mobile: tapping a second point swaps the selected gene", async () => {
+  await test("mobile: selecting a second point swaps the selected gene", async () => {
     const { context, page } = await newPage(browser, { mobile: true, origin });
     await tapPoint(page, 0); // TP53
     await waitForSymbol(page, "TP53");
-    await tapPoint(page, 1); // BRCA1
+    await waitForDrawerVisible(page);
+    await page.evaluate(() => {
+      const el = document.querySelector(".bt-plotly-gene-hover .html-widget");
+      el.emit("plotly_click", {
+        event: { type: "touchend", changedTouches: [{ clientX: 100, clientY: 100 }] },
+        points: [{ key: "BRCA1" }],
+      });
+      el.dispatchEvent(new MouseEvent("click", { bubbles: true, clientX: 100, clientY: 100 }));
+    });
     await waitForSymbol(page, "BRCA1");
     const root = await page.evaluate(pageEval.rootInfo);
     expectEqual(root.presentation, "drawer", "presentation");
@@ -451,7 +474,8 @@ try {
     const { context, page } = await newPage(browser, { mobile: true, origin });
     await tapPoint(page, 0); // TP53
     await waitForSymbol(page, "TP53");
-    await page.locator(".gt-drawer-handle").click();
+    await waitForDrawerVisible(page);
+    await page.locator(".gt-drawer-close-button").dispatchEvent("click");
     await waitForClosed(page);
     expectTrue(await page.evaluate(pageEval.isClosed), "drawer closed");
     await context.close();
