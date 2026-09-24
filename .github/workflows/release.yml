@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing tag to create a release for
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve tag
+        id: tag
+        run: |
+          tag="${GITHUB_REF_NAME:-v${{ inputs.tag }}"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Create release from NEWS.md
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${{ steps.tag.outputs.tag }}"
+          version="${tag#v}"
+
+          # Extract the "# BioTooltipR <version>" section from NEWS.md
+          awk -v ver="$version" '
+            $0 == "# BioTooltipR " ver { found = 1; next }
+            found && /^# / { exit }
+            found { print }
+          ' NEWS.md > release-notes.md
+
+          if [ -s release-notes.md ]; then
+            gh release create "$tag" \
+              --title "BioTooltipR $version" \
+              --notes-file release-notes.md \
+              --latest
+          else
+            echo "::warning::No NEWS.md section for $version; creating release without notes"
+            gh release create "$tag" --title "BioTooltipR $version" --latest
+          fi
