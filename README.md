@@ -95,3 +95,7 @@ available when explicitly requested:
 ```r
 use_bio_tooltips(cdn = TRUE, version = "2.3.2")
 ```
+
+## AI-assisted development
+
+Generative AI tools have been used during development to assist with code generation, refactoring, testing, documentation, and debugging. All software design decisions, integration, code review, and testing are performed by me (a human), who is responsible for the resulting code and documentation.
