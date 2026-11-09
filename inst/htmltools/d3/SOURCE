@@ -1,15 +1,15 @@
 These files were copied from the published npm package:
 
-  d3@7.9.0
+  d3@7.9.2
 
 Source package:
 
-  https://www.npmjs.com/package/d3/v/7.9.0
+  https://www.npmjs.com/package/d3/v/7.9.2
 
 npm tarball checksums:
 
-  shasum: 579e7acb3d749caf8860bd1741ae8d371070cd5d
-  integrity: sha512-e1U46jVP+w7Iut8Jt8ri1YsPOvFpg46k+K8TpCb0P+zjCkjkPnV7WzfDJzMHy1LnA+wj5pLT1wjO901gLXeEhA==
+  shasum: 25ceac8314c38a543387b6e56573414c67c1585e
+  integrity: sha512-ZKb/mONPVKzaO5UlcWcwN8bS4ezvQaYu+bsou+XgNABdGC800kwH651ADTbbTxMPHW13UlvbQafdmJQDk1w7Mg==
 
 Copied files:
 

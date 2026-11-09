@@ -17,7 +17,7 @@ use_bio_tooltips(
   tooltip_width = NULL,
   tooltip_height = NULL,
   include_optional_visual_deps = "auto",
-  d3_version = "7.9.0",
+  d3_version = "7.9.2",
   ideogram_version = "1.53.0",
   local_path = NULL
 )
