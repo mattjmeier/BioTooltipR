@@ -24,7 +24,7 @@ There are no reverse dependencies.
 ## Additional notes
 
 This package vendors pinned browser runtime assets for `bio-tooltips` 2.3.2,
-D3 7.9.0, and Ideogram 1.53.0 under `inst/htmltools/`. The corresponding
+D3 7.9.2, and Ideogram 1.53.0 under `inst/htmltools/`. The corresponding
 license and source metadata files are included with the vendored assets.
 
 By default, examples, tests, and vignettes use local vendored assets and do not
