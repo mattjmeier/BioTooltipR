@@ -18,18 +18,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.tag && format('refs/tags/{0}', inputs.tag) || github.ref }}
 
       - name: Resolve tag
         id: tag
+        env:
+          REQUESTED_TAG: ${{ inputs.tag }}
         run: |
-          tag="${GITHUB_REF_NAME:-v${{ inputs.tag }}"
+          tag="${REQUESTED_TAG:-$GITHUB_REF_NAME}"
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
 
       - name: Create release from NEWS.md
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.tag.outputs.tag }}
         run: |
-          tag="${{ steps.tag.outputs.tag }}"
+          tag="$RELEASE_TAG"
           version="${tag#v}"
 
           # Extract the "# BioTooltipR <version>" section from NEWS.md
@@ -41,10 +46,11 @@ jobs:
 
           if [ -s release-notes.md ]; then
             gh release create "$tag" \
+              --verify-tag \
               --title "BioTooltipR $version" \
               --notes-file release-notes.md \
               --latest
           else
             echo "::warning::No NEWS.md section for $version; creating release without notes"
-            gh release create "$tag" --title "BioTooltipR $version" --latest
+            gh release create "$tag" --verify-tag --title "BioTooltipR $version" --latest
           fi
