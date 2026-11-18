@@ -265,6 +265,12 @@ async function tapPoint(page, index) {
   await page.touchscreen.tap(c.x, c.y);
 }
 
+function visibleTooltip(page, symbol) {
+  return page.locator("[data-gt-tooltip-root]:visible:not([inert])").filter({
+    has: page.locator(".gene-tooltip-title strong", { hasText: new RegExp(`^${symbol}$`) }),
+  });
+}
+
 async function newPage(browser, { mobile, origin }) {
   const context = await browser.newContext(
     mobile
@@ -365,6 +371,52 @@ try {
     await waitForSymbol(page, "BRCA1");
     expectEqual(await page.evaluate(pageEval.shownSymbol), "BRCA1", "shown symbol");
     await context.close();
+  });
+
+  await test("desktop: pinned popovers survive hovering and pinning other points", async () => {
+    const { context, page } = await newPage(browser, { mobile: false, origin });
+    try {
+      await hoverPoint(page, 0); // TP53
+      const first = visibleTooltip(page, "TP53");
+      await first.getByRole("button", { name: "Pin tooltip in place" }).click();
+      const position = await first.evaluate((root) => [root.style.left, root.style.top]);
+
+      await hoverPoint(page, 3); // EGFR, across the plot from TP53
+      const second = visibleTooltip(page, "EGFR");
+      await second.waitFor({ state: "visible", timeout: 5000 });
+      expectEqual(await first.count(), 1, "first tooltip still visible");
+      expectEqual(await first.getAttribute("data-pinned"), "true", "first tooltip still pinned");
+      const pinnedPosition = await first.evaluate((root) => [root.style.left, root.style.top]);
+      expectEqual(pinnedPosition, position, "first tooltip keeps its position");
+      const queries = await page.evaluate(() => [window.__btAnchorAttrs(0).query, window.__btAnchorAttrs(1).query]);
+      expectEqual(queries, ["TP53", "EGFR"], "each tooltip keeps its own query anchor");
+
+      await second.getByRole("button", { name: "Pin tooltip in place" }).click();
+      await page.mouse.move(5, 5);
+      await hoverPoint(page, 0);
+      expectEqual(await first.count(), 1, "returning to the first point keeps a single card");
+      expectEqual(await second.getAttribute("data-pinned"), "true", "second tooltip still pinned");
+
+      await first.getByRole("button", { name: "Unpin and close tooltip" }).click();
+      await first.waitFor({ state: "hidden" });
+      await page.waitForFunction(() => window.__bt.destroyCalls === 1);
+      expectEqual(await second.getAttribute("data-pinned"), "true", "unpinning one preserves the other");
+
+      await page.mouse.move(5, 5);
+      await hoverPoint(page, 0);
+      await first.waitFor({ state: "visible" });
+      expectEqual(await first.getAttribute("data-pinned"), null, "unpinning allows a fresh hover");
+      await page.mouse.move(5, 5);
+      await first.waitFor({ state: "hidden" });
+      expectEqual(await second.getAttribute("data-pinned"), "true", "unpinned hover closes independently");
+
+      expectTrue(await page.evaluate(() => window.__btRerender()), "rerender ran");
+      await second.waitFor({ state: "hidden" });
+      expectEqual(await page.evaluate(() => window.__bt.destroyCalls), 3, "rerender destroys both remaining handles");
+      expectEqual(await page.locator(".bt-plotly-gene-hover-anchor").count(), 1, "temporary anchors removed");
+    } finally {
+      await context.close();
+    }
   });
 
   await test("desktop: the card stays open while the pointer moves onto it", async () => {

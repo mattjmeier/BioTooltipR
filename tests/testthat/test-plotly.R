@@ -67,7 +67,7 @@ test_that("bt_plotly_gene_hover wraps a plotly widget with a gene anchor", {
   expect_match(html, "state.root.addEventListener('mouseleave', onRootLeave)", fixed = TRUE)
   expect_match(html, "state.root.removeEventListener('mouseenter', onRootEnter)", fixed = TRUE)
   expect_match(html, "state.root.removeEventListener('mouseleave', onRootLeave)", fixed = TRUE)
-  expect_match(html, "if (state.pointerInsideTooltip) return;", fixed = TRUE)
+  expect_match(html, "if (state.pointerInsideTooltip || isPinned(state.root)) return;", fixed = TRUE)
   expect_match(html, "state.closeTimer = setTimeout", fixed = TRUE)
 
   # Re-render safety: state + cleanup stored on the element

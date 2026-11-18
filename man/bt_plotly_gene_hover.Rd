@@ -43,11 +43,12 @@ widget with this helper.
 Hover over a point on desktop, or tap a point on mobile. On screens at or
 below 600 CSS pixels wide, the tooltip opens as a persistent bottom drawer
 that stays open until another point is selected, the user taps outside the
-drawer, drags it closed, or activates its close button.
+drawer, drags it closed, or activates its close button. On desktop, pinned
+tooltips stay open while you hover over or pin other points.
 
-The helper attaches one \link[=bio_tooltips_dependency]{bio-tooltips} anchor with
-the programmatic \code{GeneTooltip.attach()} API and reuses it as the selected
-point changes, so repeated renders of the widget do not accumulate listeners.
+The helper uses the \link[=bio_tooltips_dependency]{bio-tooltips} \code{GeneTooltip.attach()}
+API to reuse a hover anchor and retain a separate anchor for each pinned
+tooltip. Repeated widget renders clean up the anchors and listeners.
 }
 \examples{
 if (requireNamespace("plotly", quietly = TRUE)) {

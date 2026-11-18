@@ -1,5 +1,9 @@
 # BioTooltipR (development version)
 
+- Updated the vendored `bio-tooltips` runtime to 2.4.2.
+- Pinned Plotly gene tooltips stay open while you hover over or pin other plot
+  points.
+
 # BioTooltipR 0.1.2
 
 - Updated the vendored `bio-tooltips` runtime to 2.3.2, bringing the latest
